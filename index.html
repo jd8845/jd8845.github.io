@@ -25,5 +25,19 @@
     	});
     </script>
 
+    <script>
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            try {
+                var akPush = new AKPush();
+                akPush.initSubscription();
+            } catch (e) {
+                console.log(e);
+            }
+        }, 10000); // 10 секунд
+    });
+</script>
+
+
   </body>
 </html>
