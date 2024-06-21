@@ -1,1 +1,1 @@
-importScripts('https://pxl.polina-zakaryan.dev.altkraft.com/service-worker.js?id=NXw2');
+importScripts('https://pxl.polina-zakaryan.dev.altkraft.com/service-worker.js?id=MXw4MQ..');
