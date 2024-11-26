@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <!-- Подключение Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <script>
+        // Функция для отправки данных через ak_pixel_push
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+            // Получаем данные из формы
+            const name = document.querySelector('input[name="name"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+
+            // Здесь можно вычислить сумму заказа, например:
+            const orderAmount = 1490; // Пример суммы заказа
+
+            // Вызов метода ak_pixel_push
+            ak_pixel_push(
+                "purchase",
+                orderAmount,
+                {
+                    db_id: 1,
+                    email: email
+                },
+                {
+                    _fname: name,
+                    subscriptions: [
+                        {
+                            resource_id: 1,
+                            channel: "email",
+                            email: email
+                        }
+                    ]
+                }
+            );
+
+            // Можно добавить код для отправки формы после вызова ak_pixel_push, если нужно
+            // document.querySelector('form').submit();
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f4f4f4, #dcdde1);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .order-block {
+            border: 2px dashed #007BFF;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .order-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .order-summary img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .order-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .order-details p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .quantity-controls button:hover {
+            background: #0056b3;
+        }
+
+        .price {
+            font-size: 1em;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .remove-item:hover {
+            color: #333;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            font-size: 1em;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            font-size: 1em;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ваш заказ:</h1>
+        <div class="order-block">
+            <div class="order-summary">
+                <img src="product.jpg" alt="Headphones">
+                <div class="order-details">
+                    <p>Наушники</p>
+                    <div class="quantity-controls">
+                        <button type="button">-</button>
+                        <p>1</p>
+                        <button type="button">+</button>
+                    </div>
+                </div>
+                <p class="price">1490₽</p>
+                <button class="remove-item">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <p class="total">Сумма: <strong>1490₽</strong></p>
+        <form action="confirm_page.html" method="POST">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="email" name="email" placeholder="Ваш email" required>
+            <button type="submit">Оформить заказ</button>
+        </form>
+    </div>
+</body>
+
+</html>
